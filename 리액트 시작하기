@@ -404,3 +404,119 @@ console.log(arr.join(""));// "" 공백을 넣어주면 쉼표가 사라짐, ""�
 
 3.truthy & falsy
 자바스크립트가 자신만의 기준으로 값을 true나 false로 정의함
+조건식에서 true로 인식하는것들 -> [] , 숫자, "문자열" , infinty  -> truthy
+null, undefined, false, -, 0, NaN, "" -> flasy
+코딩에서 이 개념을 활용할 수 있다
+
+const getName = (person) => {
+  if (person === undefined || person === null) { //조건문을 참으로 만들어 에러가 발생하지 않게 함
+    return "객체가 아닙니다";
+  }
+  return person.name;
+};
+
+let person = null;
+const name = getName(person);
+console.log(name);
+
+=> if (!person) { //false값이 들어가도 not이되서 true가 됨
+    return "객체가 아닙니다";
+  } //더 간단하게 조건문 수정가능
+
+삼항 연산자
+-조건문 한줄 끝내기
+let a = 3;
+if (a >= 0) {
+  console.log("양수");
+} else {
+  console.log("음수");
+}
+=>>
+let a = 3;
+a >= 0 ? console.log("양수") : console.log("음수");// 조건?참:거짓
+값을 반환하게 수정
+=>>
+const arryStatus = a.length === 0 ? "빈배열입니다" : "비어있지안습니다.";
+console.log(arryStatus);
+
+-주어진 값이 null이거나 undefined이아닌지 판다하는 함수 만들기let a;
+
+const result = a ? true : false;
+console.log(result);
+=> truthy와 falsy 개념 이용 가능 
+
+-삼항 연산자 중첩 활용하기 
+//학점계산 프로그램
+//90이상 A+
+//50이상 B+
+//둘다아니면F
+
+let score = 100;
+
+score >= 90
+  ? console.log("A+")
+  : score >= 50
+  ? console.log("B+")
+  : console.log("F"); //중첩으로 사용하면 가독성이 떨어지기때문에 if문 사용
+=>>
+if (score >= 90) {
+  console.log("A+");
+} else if (score >= 50) {
+  console.log("B+");
+} else {
+  console.log("F");
+}
+
+단락회로평가
+왼쪽-> 오른쪽 으로 향하는 논리연산자의 연산 순서를 이용하는 문법
+console.log(false && true);
+&&은 둘다 true인 경우에만 참이기 때문에 한쪽이 false면 그냥 false이다 -> 단락평가가 이루어짐
+
+-단락회로 평가를 truth나 falsy에 사용하기
+const getName = (person) => {
+  if (!person) {//null인지 undefined인지 검사
+    return "객체가 아닙니다.";
+  } else {
+   return person.name;
+  }
+};
+let person;
+const name = getName(person);
+
+console.log(name);
+->>
+const getName = (person) => {
+  return person && person.naem;//falsy 면 그값을 그대로 리턴함
+};
+
+---- 여기에 객체가 아니면 아니라는 문구가 나오게 추가 
+const getName = (person) => {
+  const name = person && person.name; //person이 true이기 때문에 person.name값을 반환함
+  return name || "객체가아닙니다."; //name의 값이 truthy "mike"이기 때문에 뒤는 보지않고 이름을 출력함
+};
+let person = { name: "mike" };
+const name = getName(person);
+
+console.log(name);
+
+정리 
+변수에 참이나 거짓의 값을 담고 || 를 이용해서 리턴값이 truthy 나 falsy에 따라 달라지게 나옴 
+
+조건문 업그레이드
+-주어진 문자열이 한식에 해당하는지 검사
+function isKoreanFood(food) {
+  if (food === "불고기" || food === "비빔밥" || food === "떡볶이") {
+    return true;
+  }
+  return false;
+}
+const food1 = isKoreanFood("불고기");
+console.log(food1);
+--> 많은 음식종류를 다 입력하기 불가능
+if (["불고기" || "떡복이" || "비빔밥"].includes(food)) {
+    return true;
+  }
+  return false;
+}
+--> inclodse() 사용가능
+
