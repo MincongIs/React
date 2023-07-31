@@ -137,5 +137,270 @@ console.log(hello());
 let hello = () => "안녕하세요";
 console.log(hello());
 
+2-8 콜백함수 
+함수의 파라미터로 함수를 넘긴다. 
+function checkMood(mood, goodCallback, badCAllback) {
+  if (mood === "good") {
+    goodCallback();
+  } else {
+    badCAllback();
+  }
+}
 
+function cry() {
+  console.log("action :: cry");
+}
+function sing() {
+  console.log("action :: sing");
+}
+function dance() {
+  console.log("action :: dance");
+}
+checkMood("good", sing, cry);
 
+함수를 값에 담는 함수 표현식의 개념을 이용해서 매개변수에 담아 호출하면 결론적으로 매개변수안에 담겨진 함수를 호출하게 된다 
+
+2-9 객체
+객체 만드는법 
+1. 객체 생성자 
+let person = new Object();
+2. let person = {}; 객체 리터럴 방식
+
+객체의 키와 값에는 모든 문자열이 가능하다
+let person = {
+  key : "value",
+  key1 : 1, //속성, 객체 프로퍼디, 객체의 데이터
+  key2 : true,
+  key3 : undefined,
+  key4 : [1,2],
+  key5 : function (){}
+};
+
+console.log(person);
+console.log(person.key1);//특정값 꺼내기, 점 표기법
+----
+let person = {
+  name: "mike",
+  age: 25
+};
+
+console.log(person.name);
+console.log(person["name"]); // 대가로 사용, 점표기법과 같은 결과, 반드시 "문자열" 사용 아니면 뱐수로 인식함 
+----
+console.log(getPropertyValue("name"));
+
+function getPropertyValue(key) {
+  return person[key];
+}
+고정되지 않은 값에 접근할 때 가로 표기법으로 사용한다. 
+
+객체 프로퍼티 생성이후 추가, 삭제하는법 
+1.추가
+let person = {
+  name: "mike",
+  age: 25
+};
+
+person.location = "한국";
+console.log(person);
+2. 수정 (상수 객채의 값도 수정가능)
+const person = {
+  name: "mike",
+  age: 25
+};
+
+person.location = "한국";
+person["gender"] = "male";
+person.name = "han";
+person["age"] = "40";
+console.log(person);
+
+3. 삭제
+let person = {
+  name: "mike",
+  age: 25
+};
+
+delete person.age; //메모리에 남아있음
+person.name = null; //메모리에서 삭제
+console.log(person);
+
+메소드
+let person = {
+  name: "mike", //member
+  age: 25, //member
+  say: function () {
+    console.log("hello");
+  }// methd 객체안에 담신 함수
+};
+person.say();
+----
+let person = {
+  name: "mike", //member
+  age: 25, //member
+  say: function () {
+    console.log(`안녕 나는 ${this.name}`);
+  } // methd 객체안에 담신 함수
+};
+person.say();
+
+프로퍼티가 존재하는지 확인 하는 법 
+console.log(`${"name" in person}`); //in 연산자 사용
+
+배열
+순서있는 요소들의 집합
+만드는 법 
+1. let arr = new Arrray();
+2. let arr = []; //배열리터럴
+----
+let arr = [];
+console.log(arr); // 배열 출력 
+----
+모든 자료형 가능
+let arr = [1, "2", true, undefined, {}, [], function () {}];
+console.log(arr);
+-각각의 요소에 접근하기 
+console.log(arr[0]); //인덱스사용
+-추가하기
+arr.push(6); //push함수 사용시 가장 마지막에 추가됨
+arr.push({ key: "value" }); // 객체도 추가 가능 
+-배열길이 알기
+console.log(arr.length);
+
+반복문
+-100번 이름 출력하기
+for (let i = 1; i <= 100; i++) {
+  console.log("hey");
+}
+----
+for (초기식변수, 조건식, 연산 )
+-배열요소 반복문으로 순회하기 (ft.인덱스)
+const arr = ["a", "b", "c"];
+
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i]);
+}
+-객체 순회하는 방법
+let person = {
+  name: "mile",
+  age: 25,
+  tall: 180
+};
+
+const personKeys = Object.keys(person); //객체의 키를배열로반환
+
+for (let i = 0; i < personKeys.length; i++) {
+  console.log(personKeys[i]);
+}
+
+객체의 키와 밸류 확인하기 
+----
+let person = {
+  name: "mile",
+  age: 25,
+  tall: 180
+};
+
+const personKeys = Object.keys(person); //객체의 키를배열로반환
+
+for (let i = 0; i < personKeys.length; i++) {
+  const curKey = personKeys[i];
+  const curValue = person[curKey];
+  console.log(`${curKey}:${curValue}`);
+}
+----
+
+배열내장함수
+-forEach() 배열요소순환
+const arr = [1, 2, 3, 4];
+
+arr.forEach(function (elm) { //콜백함수를 각각의 배열요소에 실행함 
+  console.log(elm);
+});
+
+-map() 배열요소를 순환하면서 값을 따로 새로운 배열로 저장함
+const arr = [1, 2, 3, 4];
+const newArr = arr.map((elm) => {
+  return elm * 2; //리턴된값을 따로 배열로 반환함
+});
+
+console.log(newArr);
+
+-배열안에 3이 있는지 확인하는법
+const arr = [1, 2, 3, 4];
+
+let number = 3;
+
+arr.forEach((elm) => {
+  if (elm === number) {
+    console.log(true);
+  }
+});
+
+-includes() 배열에서 전달받은 인자가 존재하는지를 확인함
+console.log(arr.includes(number));
+
+-배열에서 그값이 몇번째에 있는지 알려줌 없으면 -1
+console.log(arr.indexOf(number));
+
+-findIndex()
+배열을 처음부터 끝까지 순서대로 순회하면서 조건에 만족하는 요소의 인덱스를 반환하는 함수
+const arr = [
+  { color: "red" },
+  { color: "yellow" },
+  { color: "blue" },
+  { color: "green" }
+]; 
+
+console.log(arr.findIndex((elm) => elm.color === "blue"));
+==> 
+console.log(arr.findIndex((elm) => {
+  return elm.color === "blue";
+}));
+
+-조건에 일치하는 요소를 가져옴
+const arr = [
+  { color: "red" },
+  { color: "yellow" },
+  { color: "blue" },
+  { color: "green" }
+];
+
+const element = arr.find((elm) => elm.color === "red");
+
+console.log(element);
+
+- filter() 배열필터링 하기 
+콜백함수가 반화하는 모든 요소를 배열로 반환
+
+-slice()
+잘라서 새로운 배열로 반환해줌
+console.log(arr.slice(0, 2));// end가 2면 0,1 이 반환됨
+
+-concat()
+const arr = [
+  { num: 1, color: "red" },
+  { num: 2, color: "yellow" }
+];
+
+const arr2 = [
+  { num: 3, color: "blue" },
+  { num: 4, color: "green" }
+];
+
+console.log(arr.concat(arr2));
+
+-sort()
+원본배열을 정렬해줌 , 문자열기준
+let chrs = ["나", "다", "가"];
+
+chrs.sort();
+console.log(chrs);
+
+-join()
+const arr = ["안녕", "하세요", "반갑", "습니다."];
+
+console.log(arr.join(""));// "" 공백을 넣어주면 쉼표가 사라짐, ""안에 다른 것도 추가 가능 
+
+3.truthy & falsy
+자바스크립트가 자신만의 기준으로 값을 true나 false로 정의함
