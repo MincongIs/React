@@ -8,3 +8,11 @@ ctr+j : 터미널 열기
 CLI명령어 방식 사용  command line interface
 ex) node index.js (파일명)
 실행된 터미널에 콘솔이 찍힘 
+
+
+node pakage manager -> npm 
+패키지 관리 도구 
+1. 폴더 생성 
+2. vs코드에서 폴더 열기 
+3. 터미널에 npm init 
+4. 패키지명 , 엔터... yes 하면 package.json 파일이 등장함 , 패키지 초기화 완료
