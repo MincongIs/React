@@ -1,1 +1,59 @@
+async/ await 직관적인 비동기 처리 
+----
+function hello() {
+  return "hello";
+}
+
+async function helloAsync() {
+  return "helloAsync";
+}
+
+console.log(hello());
+console.log(helloAsync()); ==> promise 객체를 출력한다 
+----
+--> promise(pending)으로 결과값이 나옴 
+async를 함수 앞에 붙이면 자동적으로 promise객체를 리턴함
+async함수가 promise를 반환하고 있다는 뜻은 .then()을 사용할수 있다는 것 
+----
+helloAsync().then((res) => {
+  console.log(res);
+});
+----
+->helloAsync가 출력이된다. async를 붙인 함수의 return값은 promise의 resolve의 결과값이 된다.
+----
+function delay (ms){
+  return new Promise((resolve)=>{ 
+    setTimeout(resolve(),ms) //리졸브함수를 콜백함수 자체로 전달해도됨 
+  })
+}
+
+---- delay함수를 이용해서 3초뒤에 실행시키기
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve(), ms);
+  });
+}
+
+async function helloAsync() {
+  return delay().then(() => {
+    return "helloAsync";
+  });
+}
+----
+---- await 함수 사용
+async function helloAsync() {
+  await delay(3000);//비동기함수와 사용
+  return "helloAsync";
+}
+await은 async함수 안에서만 사용가능
+----
+----
+async function main() {
+  const res = await helloAsync();
+  console.log(res); //
+}
+main();
+->3초뒤에 helloAsync 출력
+----
+
 
