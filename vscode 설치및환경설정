@@ -16,3 +16,10 @@ node pakage manager -> npm
 2. vs코드에서 폴더 열기 
 3. 터미널에 npm init 
 4. 패키지명 , 엔터... yes 하면 package.json 파일이 등장함 , 패키지 초기화 완료
+
+
+script 자주 실행하는 명령어 정의 
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"  ===>추가 하면 start를 치면 node index.js 가 터미널에서 실행이 된다 
+  },
