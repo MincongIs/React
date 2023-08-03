@@ -1,1 +1,16 @@
 async/ await 직관적인 비동기 처리 
+----
+function hello() {
+  return "hello";
+}
+
+async function helloAsync() {
+  return "helloAsync";
+}
+
+console.log(hello());
+console.log(helloAsync());
+----
+--> promise(pending)으로 결과값이 나옴 
+async를 함수 앞에 붙이면 자동적으로 promise객체를 리턴함
+
