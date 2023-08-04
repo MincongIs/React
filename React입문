@@ -1,1 +1,26 @@
+1. 리액트가 필요한 이유
+-컴포넌트로 만들어서 재사용이 가능하다 
 
+ document object model : 브라우저가 실제로 사용하는 트리형태의 객체
+-성능저하의문제를 해결하기위해 js의 변화를 가상의 돔에 업데이트시켜서 한번에 real dom에 업데이트 시킨다.
+
+2. 리액트 앱을 만드는 방법
+- 리액트와 함께 사용하는 라이브러리(package) : webpack(모듈번들라이브러리:하나의 파일로 합쳐줌), babel(컴파일러,jsx작성을 쉽게해줌)
+- Boiler plate : 기초 셋팅이 다된 패키지 -> Create React App
+- Create React App 설치하기
+폴더 생성 -> 터미널 -> npx -v -> 버전이 명시됨 (설치안된경우 node와 npm설치여부확인:npm install -g npx)-> npm create-react-app 프로젝트명 ->입력하면 설치됨 
+- npm start ->우리가 만든 리액트앱을 웹브라우저에서 로컬호스트로 볼수 있다
+- 작업을 끝내고 싶을때는 ctr+c 클릭
+-node moduel 이 없어도 동작하는데 문제가 없도 없으면 npm i 로 다시 설치가능 
+* 파일설명
+-public
+-robots.txt 구글에서 파일 수집할때 가져갈것 가져가지 말것 경로 설정
+-src : source의 약자 source code
+
+
+3. jsx
+- 리액트의 컴포넌트를 만드는데 사용
+-index.js 는 수정후 새로고침을 해줘야함 , index.js에서는 최상위 컴포넌트를 정의해줄수 있음 보통 app.js 컴포넌트임 
+-닫힘 규칙 : 여는 태그와 닫는 태그<></> 
+
+4. state
