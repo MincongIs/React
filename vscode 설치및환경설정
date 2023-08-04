@@ -23,3 +23,15 @@ script 자주 실행하는 명령어 정의
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"  ===>추가 하면 start를 치면 node index.js 가 터미널에서 실행이 된다 
   },
+
+-npm 패키지 사용하기 
+*구글에 npm 검색후 사이트에서 randomcolor검색 
+*설치 명령어를 복사해서 설치하려는 폴더의 packagejs이 위치한 곳에 설치를 한다 
+*설치하면 package.json에 "dependencies"항목이 추가가 된다 -->
+packagejs은 우리가 어떤 외부 파일을 설치 했는지와 버전을 기록해준다 ^:버전의 범위만 알려줌 
+* pakage-rock-json 은 우리가 설치한 외부파일의 정확한 버전을 명시함
+-다운받은 페키지 사용하기 
+사이트에서 설명서를 본다 
+ -> const randomcolor = require('randomcolor'); //원래 경로를 넣어야하는데 노드모듈에 있는건 그냥 이름만 명시한다
+ -> console.log(randomcolor()); // npm start로 결과를 보면 랜덤으로 컬러값이 터미널에 나옴
+
