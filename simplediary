@@ -10,41 +10,41 @@
 input과 textarea의 state가 비슷하기 때문에 두개를 하나로 묶어줗수 있다 
 ----
 const DiaryEditor = () => {
-  const [state, setState] = useState({
-    author: "",
-    contents: "",
-  });
+const [state, setState] = useState({
+  author: "",
+  contents: "",
+});
 
 <input
-          value={state.author}
-          onChange={(e) => {
-            setState({
-              author: e.target.value,
-              contents: state.contents,
-            });
-          }}
-        />
+  value={state.author}
+  onChange={(e) => {
+    setState({
+      author: e.target.value,
+      contents: state.contents,
+    });
+  }}
+/>
 <textarea
-          value={state.contents}
-          onChange={(e) => {
-            setState({
-              contents: e.target.value,
-              author: state.author,
-            });
-          }}
-        />
+  value={state.contents}
+  onChange={(e) => {
+    setState({
+      contents: e.target.value,
+      author: state.author,
+    });
+  }}
+/>
 ----
 -묶여 있는 값이 여러개인경우 ...state 스프래드 연산자를 이용한다 
 ---->>
 <input
-          value={state.author}
-          onChange={(e) => {
-            setState({
-                ...state,
-              author: e.target.value,
-            });
-          }}
-        />
+    value={state.author}
+    onChange={(e) => {
+      setState({
+          ...state,
+        author: e.target.value,
+      });
+    }}
+  />
 ----
 6. 두개의 이벤트 핸들러 합치기
 const handleChangeState = (e) => {
@@ -56,16 +56,16 @@ const handleChangeState = (e) => {
 7. 감정선택만들기
 ----
 <select
-          name="emotion"
-          value={state.emotion}
-          onChange={handleChangeState}
-        >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-        </select>
+    name="emotion"
+    value={state.emotion}
+    onChange={handleChangeState}
+  >
+    <option value={1}>1</option>
+    <option value={2}>2</option>
+    <option value={3}>3</option>
+    <option value={4}>4</option>
+    <option value={5}>5</option>
+  </select>
 -----
 diaryEditor 함수에 emotion: "1", 추가 
 
@@ -81,5 +81,84 @@ const handleSubmit = () => {
       </div>
 ----
 
+리액트에서 dom조작하기
+useRef
+입력이 제대로 들어왔는지 확인하기 
+1. handleSubmint 저장버튼에 기능추가하기 
+ 
+const handleSubmit = () => {
+  if (state.author.length < 1) {
+    alert("작성자는 최소 1글자 이상 입력해주세요");
+    return;
+  }
+
+  if (state.contents.length < 5) {
+    alert("일기본문은 최소 5글자 이상 입력해주세요");
+    return;
+  }
+  alert("저장 성공");
+};
+
+---> alert보다 포커스를 줘서 수정하게 하자 
+1. 포커스를 해야하는 요소는 2개이다 input 과 textarea ==> 두개의 엘리먼트에 useRef를 이용해서 접근해야함
+const authorInput = useRef(); //useRef를 호출해서 authorinput 에 담으면 안데 react.mutableRefernce 가 담긴다 (돔요소를 접근할수 있는 기능)
+2. <input ref={authorInput}> .... input에 authorInput 전달하기   
+3. authorInput.current.focus(); // alert()메세지 지우고 handleSubmit에 추가해주기 
+4. textarea에도 똑같이 해준다 끝
+
+리스트 사용하기
+1. 작성된 일기들은 배열에 저장이 된다 배열에 아이템을 저장해 리스트 형태로 랜더링이 됨 --> 일기리스트에 일기들이 배열이 되게 만들기 
+2. 연습을 위해 app.js 에 더미를 만들어 준다 
+app.js
+const dummyList =[
+{
+  id:1,
+  author:"진민영",
+  content:"하이 1",
+  emotion:5,
+  created_date: new Date().getTime() // date객체에 아무값도 넣지 않으면 현재시간이 나온다 getTime()매서드를 사용해 milliseconds로 불러온다
+}
+
+--> 이 더미 리스트를 <DiaryList /> 모듈에 객체로 값을 넘겨준다
+3. DiaryList.js
+----
+<div>
+  {dirayList.map((it) => (
+    <div>일기 아이템</div>
+  ))}
+</div>
+---->>> map의 리터값이 div로 들어오게 됨 
+이것을 실제 데이터에 적용하기 
+----->
+<div>
+  {dirayList.map((it) => (
+    <div>
+      <div>작성자 : {it.author}</div>
+      <div>일기 : {it.content}</div>
+      <div>감정 : {it.emotion}</div>
+      <div>작성 시간 : {it.created_date}</div>
+    </div>
+  ))}
+</div>
+----
+
+4. undefied 값이 나오는것을 대비해서 
+DiaryList.defaultProps={
+    diaryList:[]
+}
+를 하단에 추가한다 
+
+5. key props만들기
+<div key={it.id}>  -->리스트를 감싸는 div에 추가 
+
+6. 리스트 컴포넌트 따로 만들기 
+DiaryList.js 를 따로 만든다 
+---
+<div>
+  {dirayList.map((it) => (
+    <DiaryItem key={it.id} {...it} />
+  ))}
+</div>
+---
 
 
