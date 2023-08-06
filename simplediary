@@ -1,3 +1,5 @@
+리액트에서 사용자입력 처리하기
+
 1. npx create-react-app simplediary 
 2. 폴더생성후 정리 -> 사용하지 않는 파일 삭제 app.test.js, logo.svg, reportWebWitals.js , setupTest.js 등..
 3. 사용자의 입력을 처리하기 위해서 state사용 
@@ -32,3 +34,52 @@ const DiaryEditor = () => {
           }}
         />
 ----
+-묶여 있는 값이 여러개인경우 ...state 스프래드 연산자를 이용한다 
+---->>
+<input
+          value={state.author}
+          onChange={(e) => {
+            setState({
+                ...state,
+              author: e.target.value,
+            });
+          }}
+        />
+----
+6. 두개의 이벤트 핸들러 합치기
+const handleChangeState = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value, // 타겟의 이름에따라 value값이 바뀐다
+    });
+  };
+7. 감정선택만들기
+----
+<select
+          name="emotion"
+          value={state.emotion}
+          onChange={handleChangeState}
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
+-----
+diaryEditor 함수에 emotion: "1", 추가 
+
+8. 저장버튼만들기
+----
+const handleSubmit = () => {
+    console.log(state);
+    alert("저장 성공");
+  };
+----
+<div>
+        <button onClick={handleSubmit}>일기 저장하기</button>
+      </div>
+----
+
+
+
