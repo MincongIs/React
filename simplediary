@@ -1,0 +1,7 @@
+1. npx create-react-app simplediary 
+2. 폴더생성후 정리 -> 사용하지 않는 파일 삭제 app.test.js, logo.svg, reportWebWitals.js , setupTest.js 등..
+3. 사용자의 입력을 처리하기 위해서 state사용 
+4. input 에 스테이트 초기값 author 를 값으로 넣어준다. 이 값이 변경이 되야지 상태가 반영이 된다 onChange={콜백함수} 이벤트(사용자의행동감지) 사용하기 
+이 콜백함수는 이벤트 객체 e를 전달 받는다 
+이벤트 객체의 e.tatget.value값이 사용자가 입력한 값이다.
+5. textarea추가하기 
