@@ -5,3 +5,30 @@
 이 콜백함수는 이벤트 객체 e를 전달 받는다 
 이벤트 객체의 e.tatget.value값이 사용자가 입력한 값이다.
 5. textarea추가하기 
+input과 textarea의 state가 비슷하기 때문에 두개를 하나로 묶어줗수 있다 
+----
+const DiaryEditor = () => {
+  const [state, setState] = useState({
+    author: "",
+    contents: "",
+  });
+
+<input
+          value={state.author}
+          onChange={(e) => {
+            setState({
+              author: e.target.value,
+              contents: state.contents,
+            });
+          }}
+        />
+<textarea
+          value={state.contents}
+          onChange={(e) => {
+            setState({
+              contents: e.target.value,
+              author: state.author,
+            });
+          }}
+        />
+----
