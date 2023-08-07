@@ -176,7 +176,7 @@ app.js [data, setData]      <<<-------ㄱ
 (데이터는 위에서 아래로 , 이벤트는 아래에서 위로 )
 
 2. 
-----
+----app.js
 const [data, setData] = useState([]);
 
 const dataId = useRef(0); //id를 useRef를 이용해서 만들어 줌
@@ -197,8 +197,8 @@ const onCreate = (author, content, emotion) => { // setData를 이용해서 사�
 <DiaryEditor onCreate={onCreate}/>// 일기를 추가하는 함수인 onCreate를 diaryEditor에 prop으로 추가함
 <DirayList dirayList={data} /> // 일기 배열인 data값을 diaryList에 내려준다
 ----
-DiaryEditor.js
-----
+
+----DiaryEditor.js
 const DiaryEditor = ({ onCreate }) => {.......   //prop으로 값을 받는다 
 .
 .
@@ -211,4 +211,13 @@ setState({    ///일기 작성 저장후에 값을 초기화 해준다
   emotion: 1,
 });
 ---
+정리 
+1.app컴로넌트가 diaryEditor와 diaryList가 사용할 data값을 가지고 있다 
+초기값은 빈배열임
+2.diaryLIst에는 현재 상태인 data값을 넘겨주기만 하면된다 -> app컴포넌트의 data값이 변하면 diaryList도 다시 랜더링 된다 
+3. 사용자각 작성을 하면 data의 상태가 변한다 
+4. app컴포넌트에 onCreate라는 함수를 만든다 이 함수는 작성자와 컨텐트 이모션을 전달 받는다  
+5. handleSubmit 즉 일기 저장이 일어났을때 onCreate함수를 호출해서 현재 컴포넌트의 값을 app으로 전달한다
+6 그러면 onCreate에서 값을 받아 newItem을 만들어서 setData함수를 호출해서 리스트의 가장위로 newItem 이 추가된다 
+
 
