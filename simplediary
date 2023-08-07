@@ -162,7 +162,8 @@ DiaryItem.js 를 따로 만든다
 ---
 
 리스트 추가하기 
-1. 리액트는 단방향으로 데이터가 흐른다 
+1. 컴포넌트의 데이터 & 구조
+리액트는 단방향으로 데이터, 역방향 이벤트가 흐른다
 공통부모요소로 state를 가지고 있으면 두 자식요소에 값을 보낼수 있다 
 
 app.js [data, setData]      <<<-------ㄱ
@@ -174,4 +175,40 @@ app.js [data, setData]      <<<-------ㄱ
   ↓         ↑
 (데이터는 위에서 아래로 , 이벤트는 아래에서 위로 )
 
+2. 
+----
+const [data, setData] = useState([]);
+
+const dataId = useRef(0); //id를 useRef를 이용해서 만들어 줌
+
+const onCreate = (author, content, emotion) => { // setData를 이용해서 사용자가 작성한 값을 받아 다시 data에 업데이트 시키는 로직을 작성함
+  const created_date = new Date().getTime();
+  const newItem = { //새로운 일기 아이템으로 추가되어야 하는것 
+    author,
+    content,
+    emotion,
+    created_date,
+    id: dataId.current
+  };
+ dataId.current += 1;// 다음 아이디에 +1증가 시킴 
+ setData([newItem, ...data]); // 기존 data 위에 newItem 을 추가한다
+};
+
+<DiaryEditor onCreate={onCreate}/>// 일기를 추가하는 함수인 onCreate를 diaryEditor에 prop으로 추가함
+<DirayList dirayList={data} /> // 일기 배열인 data값을 diaryList에 내려준다
+----
+DiaryEditor.js
+----
+const DiaryEditor = ({ onCreate }) => {.......   //prop으로 값을 받는다 
+.
+.
+.
+onCreate(state.author, state.contents, state.emotion);// 작성한 값을 가져온다
+alert("저장 성공");
+setState({    ///일기 작성 저장후에 값을 초기화 해준다
+  author: "",
+  contents: "",
+  emotion: 1,
+});
+---
 
