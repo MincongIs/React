@@ -379,4 +379,37 @@ const Lifecycle = () => {
 ----
 
 
+리액트에서 api호출하기
+- useEffect를 이용해 컴포넌트 mount시점에 api를 호출하고 해당 api의 결과값을 일기데이터의 초기값으로 이용하기
+1. jsonplaceholder이용 -> Resources -> comments 사용 
+2. app.js 함수생성 
+const getData = async()=>{ // promise를 반환하는 비동기함수로 만든다
+    
+}
+-->
+const getData = async () => {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/comments"
+  ).then((res) => res.json());//json함수를 이용해서 json값들만 가져온다
+  console.log(res);
+};
+3. mount되는 시점에 api호출 함수를 실행하게함
+useEffect(()=>{
+  getData();
+},[]) //빈배열을 넣어주면 mount되는 시점에 콜백함수가 실행됨
+4. res 상수에 저장된 값을 통해서 일기 데이테의 기초값을 설정하기 
+----
+const intiData= res.slice(0,20).map((it)=>{
+    return {
+      author:it.email,
+      content: it.body,
+      emotion:Math.floor(Math.random()*5)+1,
+      created_date: new Date().getTime(),
+      id:dataId.current++
+    }
+  })
+---->
+(Math.random()*5) -> 0~4까지의 수(소수점포함)를 반환한다
+Math.floor() -> 정수로 바꿔주는 함수 
+
 
