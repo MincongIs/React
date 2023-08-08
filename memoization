@@ -1,10 +1,42 @@
 1. appjs 리턴문 위에 3가지 함수를 만든다
 const getDiaryAnalysis = ()=> {
   console.log("일기 분석 시작");
-  
 }
 2. 기분좋은 일기 구하기 감정점수가 3이상인것 
+  const goodCount = data.filter((it)=>it.emotion >=3).length;
+3. 기분나쁜일기구하기
+  const badCount = data.length-goodCount;
+4. 좋은 일기 비율구하기
+const goodRatio = (goodCount/ data.length)*100;
+5. 3가지를 객체로 리턴하기
+return {goodCount, badCount,goodRatio};
+
+----
 const getDiaryAnalysis = ()=> {
   console.log("일기 분석 시작");
   const goodCount = data.filter((it)=>it.emotion >=3).length;
+  const badCount = data.length-goodCount;
+  const goodRatio = (goodCount/ data.length)*100;
+  return {goodCount, badCount,goodRatio};
 }
+----
+6. 지역함수로 만든 getDiaryAnalysis()를 리턴전에 호출한다 
+const {goodCount, badCount,goodRatio} = getDiaryAnalysis();
+7. 이렇게 얻은 3개의 데이터를 호출한다 
+<div>전체 일기 : {data.length}</div>
+<div>기분 좋은 일기 개수 : {goodCount}</div>
+<div>기분 나쁜 일기 개수 : {badCount}</div>
+<div>기분 좋은 일기 비율 : {goodRatio}</div>
+
+8. 리턴을 가지고 있는 함수를 memoization해서 연산을 최적화 하기 위해서는 useMemo()를 사용 
+사용하고자하는 함수를 useMemo()함수로 감싸준다
+ const getDiaryAnalysis = useMemo(() => {
+  console.log("일기 분석 시작");
+  const goodCount = data.filter((it) => it.emotion >= 3).length;
+  const badCount = data.length - goodCount;
+  const goodRatio = (goodCount / data.length) * 100;
+  return { goodCount, badCount, goodRatio };
+},[data.length]);
+--> 즉 useMemo함수는 첫번째 인자로 콜백함수를 갖는다 
+두번째로 전데이터의 갯수가 달라지면 콜백함수가 호출이 된다 
+9. getDiaryAnalysis는 이제 함수가 아니고 콜백함수가 내보는값을 가지게 된다 
