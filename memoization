@@ -1,0 +1,10 @@
+1. appjs 리턴문 위에 3가지 함수를 만든다
+const getDiaryAnalysis = ()=> {
+  console.log("일기 분석 시작");
+  
+}
+2. 기분좋은 일기 구하기 감정점수가 3이상인것 
+const getDiaryAnalysis = ()=> {
+  console.log("일기 분석 시작");
+  const goodCount = data.filter((it)=>it.emotion >=3).length;
+}
