@@ -315,6 +315,17 @@ useEffect(()=>{},[]) --> 콜백함수와 배열, 두개의 인자를 받는다
 라이프사이클 제어하기 
 1. Lifecycle.js 파일 생성 
 2.app에 Lifecycle컴포넌트를 추가해준다
+----
+<div style={{ padding: 20 }}>
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+    <div>
+      <input vlaue={text} onChange={(e) => setText(e.target.value)} />
+    </div>
+  </div>
+----
 3. mount되는 시점 제어하기 -> useEffect 사용 
 useEffect(() => {
   console.log("mount!");// --> 빈 배열을 전달하고 mount 될때 할일은 콜백함수에 넣는다 
@@ -338,3 +349,6 @@ useEffect(() => {
 }, [text]);
 ----
 ---> 우리가 감지하고 싶은것만 감지해서  그 값이 업데이트 되었을때 콜백함수를 실행하게 할수 있다
+
+컴포넌트가 unmount 되는 순간 제어하기 데스트
+
