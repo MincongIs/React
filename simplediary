@@ -351,4 +351,32 @@ useEffect(() => {
 ---> 우리가 감지하고 싶은것만 감지해서  그 값이 업데이트 되었을때 콜백함수를 실행하게 할수 있다
 
 컴포넌트가 unmount 되는 순간 제어하기 데스트
+1.{isVisible && <UnmountTest/>} //단락회로평가이용
+----
+/자식 컴포넌트 생성
+const UnmountTest = () => {
+  useEffect(() => {
+    console.log("Mount!");
+    return () => {
+      //unmount시점에 실행되게 됨
+      console.log("Unmount");
+    };
+  }, []);
+  return <div>unmount Testing Component</div>;
+};
+
+const Lifecycle = () => {
+  const [isVisible, setVisible] = useState(false);
+  const toggle = () => setVisible(!isVisible);
+
+  return (
+    <div style={{ padding: 20 }}>
+      <button onClick={toggle}>ON/OFF</button>
+      {isVisible && <UnmountTest />}
+    </div>
+  );
+};
+----
+
+
 
