@@ -210,3 +210,54 @@ const [data, dispatch] = useReducer(reducer,[]);
 -> 항상 두번째 인자는 dispatch 를하고 useReducer함수에는 두개의 인자인 상태변화를 처리할 reucer()와 배열을 넣어준다 
 이 reducer ()함수는 직접 만들어 줘야한다 그리고 이 함수는 두개의 파라미터를 받는다 
 하나는 처음상태인 state이고 두번째는 어떤 변화가 일어나야하는지 담고 있는 action이다 
+reducer가 리턴하는 값이 데이터의 값이 된다
+
+2. app안에 값을 리턴하는 함수의 타입을 알아본다
+getDate 는 inti action
+onCreate는 create타입
+나머지는 remove, adit이 있다 
+----
+const reducer =(state, action)=>{
+  switch(action.type){
+    case 'INIT': // action 객체에서 data프로퍼티를 꺼내서 그값을 리턴하면 새로운 state가된다
+    case 'CREATE':
+    case'REMOVE':
+    case 'EDIT':
+    default :  //case에는 반드시 default케이스를 넣어줘야한다 
+    return state; // default일때는 상태변화를 시키지 않는다
+  }
+}
+----
+3. setDate가 했던 역활을 dispatch와 reducer가 나눠서 한다 
+getData() 안에서 dispatch를 호출해준다
+- dispatch({type:"INIT",data:initData}) 추가 // dispatch를 일어켰을때 type을 init이라고 지칭하면서 data 프로퍼티에 initData를 전달한다
+- setData(initData); 삭제
+4. onCreate()에 dispatch 추가 
+
+
+5. 
+case "EDIT": { //1. edit 타입의 액션이 발생을 하면
+  return state.map((it) => 3. 그러면 기존 state에서 map함수를 사용해서 타깃아이디와 일치하는 요소를 찾은뒤 
+    it.id === action.targetId ? { ...it, content: action.newContent } : it // 2. actiond으로 targetId와 newContent가 전달이 된다 4. content만 newContent로 수정한뒤
+  );  // 나머지 요소는 it그대로 돌려주고 이 요소를 다합쳐서 새로운 배열로 만들어서 새로운 state로 보내준다
+}
+
+
+
+contextApi
+컴포넌트 트리에 데이터 공급
+props drilling해결(여러단계를 거처 props를 전달하는것) 
+해결방법
+1. app에서 provider하는 공급 자식컴포넌트에 모든 데이터를 넘긴다
+2. provider컴포넌트는 모든 자식요소에 직통을 props를 준다
+3. 이러한 문맥,  context 들을 쉽게 작성하도록 도와주는게 contextApi이다 
+4. 
+-context생성
+const MyContext = React.CreateContext(defaultValue)
+-context프로바이더를 통한 데이터 공급
+<MyContext.provider value={전역에전하고자하는value}>
+{이 텍스트안에 위치할 자식 컴포넌트}
+</MyContext.propvider>
+5. app함수 위에 
+export const DiaryStateContext = react.createContext();  ->> 이것도 app처럼 export 해줘야 하는데 
+export default는 한번만 사용가능 
