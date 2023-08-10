@@ -131,7 +131,8 @@ const areEqual = (prevprops, nextProps) => {
 };
 //이렇게 변경 가능하다
 
-
+---> 결론 
+memoizatnion된 counterB는 버튼을 눌러도 얕은 검사를 하지 않기 때문에 값이 변화되지 않얐다고 판단하고 리랜더하지 않는다 
 
 
 
