@@ -52,3 +52,88 @@ useMemo()는 첫번째 인자로 콜백함수를 가져서 콤백함수가 러�
 그렇다는것은 이 것을 아무리 호출을 해도 배열에 변화가 생기지않는 한 똑같이 이전에 계산했던 값만 리턴해서 내보낸다는 뜻이다.
 즉 똑같은 문제를 풀어하는데 새로계산할 필요가 없으면 기존의 알고있던 답을 내놓는것과 같다
 *** useMemo로 함수를 감싸서 최적화를 하면 더이상 함수가 아니라 값만 리턴하는 상태가 된다 
+
+
+React.memo
+컴포넌트 재사용 
+
+부모가 리랜더 되면 자식 모두 리랜더 되기때문에 연산의 낭비가 발생하게 된다 
+이 낭비를 막기위해서 각각 자식컴포넌트에서 각각의 prop이 바뀔때만 리런더 되게 조건을 걸어준다.
+이것을 사용할수 있는 리액트의 기능이 React.memo 이다 
+
+1. react docs 구글 검색
+2. 똑같은 prop을 받으면 똑같은 값을 내놓는것 
+3. React.memo로 리랜딩 되지 많아야할 함수를 감싸주면 부모컴포넌트에 대한 리랜더를 조절한다
+
+주의***
+객채를 비교하는 방법
+js는 객체의 값이 아니고 객체의 주소를 비교하기때문에 같은 값을 가지고 있다고 같다고 판다하지 않는다
+
+따라서 얕은 비교를 하지 않는 방법을 사용해야 한다 
+
+----
+import React, { useState, useEffect } from "react";
+
+const CounterA = React.memo(({ count }) => {
+  useEffect(() => {
+    console.log(`CounterA update - conunt:${count}`);
+  });
+  return <div>{count}</div>;
+});
+
+const CounterB = React.memo(({ obj }) => {
+  useEffect(() => {
+    console.log(`CounterB update - count : ${obj.count}`);
+  });
+  return <div>{obj.count}</div>;
+});
+
+const areEqual = (prevprops, nextProps) => {
+  if (prevprops.obj.count === nextProps.obj.count) {
+    return true;
+  }
+  return false;
+};
+const MomoizationCounterB = React.memo(CounterB, areEqual);
+
+const OptimizeTest = () => {
+  const [count, setCount] = useState(1);
+  const [obj, setObj] = useState({ count: 1 });
+  return (
+    <div style={{ padding: 50 }}>
+      <div>
+        <h2>Counter A</h2>
+        <CounterA count={count} />
+        <button onClick={() => setCount(count)}>A button</button>
+      </div>
+      <div>
+        <h2>Counter B</h2>
+        <MomoizationCounterB obj={obj} />
+        <button onClick={() => setObj({ count: obj.count })}>B button</button>
+      </div>
+    </div>
+  );
+};
+
+export default OptimizeTest;
+----
+
+----수정
+const areEqual = (prevprops, nextProps) => {
+  if (prevprops.obj.count === nextProps.obj.count) {
+    return true;
+  }
+  return false;
+};
+===>
+const areEqual = (prevprops, nextProps) => {
+  return prevprops.obj.count === nextProps.obj.count;
+};
+//이렇게 변경 가능하다
+
+
+
+
+
+
+
