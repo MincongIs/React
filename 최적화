@@ -166,8 +166,8 @@ const onCreate = useCallback((author, content, emotion) => {
     id: dataId.current,
   };
   dataId.current += 1;
-  setData((data) => [newItem, ...data]); --> 함수형 업데이트를 사용!!!!
-}, []);---> 빈배열 전달 
+  setData((data) => [newItem, ...data]); --> 함수형 업데이트를 사용!!!! data값을 최신의 값으로 유지한다
+}, []);---> 빈배열 전달 : 한번만 mount한다 
 ----
 
 
