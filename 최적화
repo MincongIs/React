@@ -171,4 +171,33 @@ const onCreate = useCallback((author, content, emotion) => {
 ----
 
 
+최적화하기 
+diaryItem.js
+-> 일기리스트 아이템 한개를 삭제해도 모든 아이템이 랜더링이 되서 메모리 낭비가 심해진다 
+1. React.memo로 컴포넌트를 묶어준다 
+2. React 를impor 한다 
+3. useEffect를 사용해서 리랜더링되는 부분을 알아본다 
+----
+const DiaryItem = ({
+  onEdit,
+  onRemove,  --> 이 두가지 함수는 dataState가 변화하면 재생성되는 함수다 이것을 app.js에서 최적화 시켜준다
+  id,
+  author,
+  content,
+  created_date,
+  emotion,
+}) => {......
+-------
+4.
+onRemove() 코드 수정하기 
+----
+const onRemove = useCallback((targetId) => {
+  const newDiaryList = data.filter((it) => it.id !== targetId);
+  setData(newDiaryList);
+},[])
+---->>>> 함수형 업데이트는 인자를 받아야 한다 
+const onRemove = useCallback((targetId) => {
+  setData((data) => data.filter((it) => it.id !== targetId));
+}, []);
+----
 
