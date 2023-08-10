@@ -201,3 +201,12 @@ const onRemove = useCallback((targetId) => {
 }, []);
 ----
 
+
+복잡한 상태변화 로직 분리 
+컴포넌트에서 상태변화 로직을 분리하자
+useReducer()
+1. app의 useState()를 주석처리하고 코드작성
+const [data, dispatch] = useReducer(reducer,[]);  
+-> 항상 두번째 인자는 dispatch 를하고 useReducer함수에는 두개의 인자인 상태변화를 처리할 reucer()와 배열을 넣어준다 
+이 reducer ()함수는 직접 만들어 줘야한다 그리고 이 함수는 두개의 파라미터를 받는다 
+하나는 처음상태인 state이고 두번째는 어떤 변화가 일어나야하는지 담고 있는 action이다 
