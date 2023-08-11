@@ -1,4 +1,4 @@
-1)페이지 라우팅
+##1)페이지 라우팅
 통신 데이터를 보낼 경로를 선택하는 과정
 라우터 
 데이터의 경로를 실시간으로 정해줌
@@ -7,4 +7,6 @@ MPA multipage aplication
 SPA -single page aplication
 CSR- client side rendering
 
-2)페이지 라우팅 설정하기 
+##2)페이지 라우팅 설정하기 
+1. cd "폴더명" -> npx create-react-app 폴더명 으로 프로젝트 생성후 파일정리
+2. react router검색-> basic installation
