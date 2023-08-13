@@ -9,4 +9,44 @@ CSR- client side rendering
 
 ## 2)페이지 라우팅 설정하기 
 1. cd "폴더명" -> npx create-react-app 폴더명 으로 프로젝트 생성후 파일정리
-2. react router검색-> basic installation
+2. react router검색-> sepup 페이지보고 npm 설치 
+
+## 리액트 라우터 돔의 유용한 기능
+1. useParam 
+=> /변수 : 경로에 넣은 수를 받아옴 
+path varaiable 
+다이어리 상세페이지는 어떤 일기를 보여줘야 할지 전달 받아야 한다 
+-->url 에 id 같은 변수를 담아서 사용하는것 , useParams 훅을 사용한다 
+path variable을 사용하려면 별도의 Route에서 path속성을 사용해야 한다 
+
+<Route path="/diary/:id" element={<Diary />} />
+경로변수를 아이디어로 꺼내와야한다 
+
+2. quary String
+네임과 밸류를 묶어서 전달함 
+퀴리스트링을 비구조할당을 사용해 받아준다 []
+홈페이지 경로: 
+http://localhost:3000/edit?id=10&mode=dark
+---> 아래의 코드로 id, mode확인 가능
+const [searchParams, setSerchParams] = useSearchParams();
+    
+  const id = searchParams.get("id");
+  console.log("id:", id);
+  const mode = searchParams.get("mode");
+  console.log("mode:", mode);
+
+edit.js
+<button onClick={() => setSerchParams({ who: "minyeong" })}></button>
+->
+setSerchParams()로 전달한 값이 url을 변경함 
+
+
+3. page moving 
+useNavigate()
+
+```
+const navigate = useNavigate();
+```
+```
+<button onClick={() => {navigate("/home");}}>홈으로 가기</button>
+```
