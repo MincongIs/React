@@ -42,11 +42,16 @@ setSerchParams()로 전달한 값이 url을 변경함
 
 
 3. page moving 
-useNavigate()
+useNavigate() 
+의도적으로 페이지를 바꿀 때 사용 한다
 
 ```
 const navigate = useNavigate();
 ```
 ```
 <button onClick={() => {navigate("/home");}}>홈으로 가기</button>
+```
+뒤로가기 
+```
+<button onClick={() => {navigate(-1);}}>뒤로 가기</button></div>
 ```
