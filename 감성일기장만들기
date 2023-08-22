@@ -68,3 +68,22 @@ const navigate = useNavigate();
 <img src={process.env.PUBLIC_URL + `/assets/emotion1.png`} /> 
 ```
 ->> public폴더에서 이미지를 찾아라 
+이미지가 잘 나오지 않을 경우 설정해주기 -->
+```
+const env = prosess.env;
+env.PUBLIC_URL = env.PUBLIC_URL || "";
+```
+
+4. 공통컴포넌트 세팅
+버튼과 헤더 컴포넌트 세팅
+```
+<MyButton
+  text={"버튼"}
+  onClick={() => alert("버튼 클릭")}
+  type={"positive"}
+></MyButton>
+```
+
+
+
+
